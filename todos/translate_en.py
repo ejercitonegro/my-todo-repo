@@ -9,8 +9,19 @@ translate = boto3.client('translate')
 def translate_en(event, context):
     result = get.get(event, context)
 
-    idValue = result[0]['id']
-    idValue_translated = translate.translate_text(Text=idValue, SourceLanguageCode="es", TargetLanguageCode="en")
-    result[0]['id'] = idValue_translated
+    dict_result = json.loads(result)
 
-    return result_translated
+    idValue = dict_result["id"]
+
+    idValue_translated = translate.translate_text(Text=idValue, SourceLanguageCode="es", TargetLanguageCode="en")
+
+    dict_result['id'] = idValue_translated
+
+    # create a response
+    response = {
+            "statusCode": 200,
+            "body": json.dumps(dict_result['Item'],
+                                cls=decimalencoder.DecimalEncoder)
+    }
+
+    return response
