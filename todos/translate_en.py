@@ -9,4 +9,4 @@ translate = boto3.client('translate')
 def translate_en(event, context):
     result = get.get(event, context)
     
-    return response
+    return result
