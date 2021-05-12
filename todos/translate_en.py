@@ -9,19 +9,8 @@ translate = boto3.client('translate')
 def translate_en(event, context):
     #result = get.get(event, context)
 
-    json_string = """
-    [
-        {
-            "checked": false,
-            "createdAt": "1620823279.6609614",
-            "text": "texto en español",
-            "id": "59c8f383-b31f-11eb-9179-a5009fe4c60e",
-            "updatedAt": "1620823279.6609614"
-        }
-    ]
-    """
 
-    result = json.loads(result)
+    #result = json.loads(result)
 
     #idValue = dict_result["id"]
 
@@ -29,11 +18,19 @@ def translate_en(event, context):
 
     #dict_result['id'] = idValue_translated
 
+    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+
+    # fetch todo from the database
+    result = table.get_item(
+        Key={
+            'id': event['pathParameters']['id']
+        }
+    )
+
     # create a response
     response = {
-            "statusCode": 200,
-            "body": json.dumps(result['Item'],
-                                cls=decimalencoder.DecimalEncoder)
+        "statusCode": 200,
+        "body": json.dumps(result['Item'], cls=decimalencoder.DecimalEncoder)
     }
-
+    
     return response
