@@ -73,11 +73,11 @@ functions:
           method: delete
           cors: true
 
-  translate_en:
-    handler: todos/translate_en.translate_en
+  translate:
+    handler: todos/translate.translate
     events:
       - http:
-          path: todos/{id}/en
+          path: todos/{id}/{lang}
           method: get
           cors: true
 

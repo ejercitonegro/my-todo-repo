@@ -5,7 +5,7 @@ from todos import decimalencoder
 dynamodb = boto3.resource('dynamodb')
 translate = boto3.client('translate')
 
-def translate_en(event, context):
+def translate(event, context, lang):
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
 
     # fetch todo from the database
@@ -15,7 +15,7 @@ def translate_en(event, context):
         }
     )
 
-    translated = translate.translate_text(Text=result['Item']['text'], SourceLanguageCode='auto', TargetLanguageCode='en')
+    translated = translate.translate_text(Text=result['Item']['text'], SourceLanguageCode='auto', TargetLanguageCode=event['pathParameters']['lang'])
     result['Item']['text'] = translated['TranslatedText']
 
     # create a response
