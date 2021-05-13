@@ -17,4 +17,10 @@ def translate_en(event, context):
                 translated = translate.translate_text(Text=value, SourceLanguageCode='auto', TargetLanguageCode='es')
                 i[key] = translated
 
-    return result
+    # create a response
+    response = {
+        "statusCode": 200,
+         "body": json.dumps(result['Item'], cls=decimalencoder.DecimalEncoder)
+    }
+
+    return response
