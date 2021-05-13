@@ -18,12 +18,8 @@ def translate_en(event, context):
         }
     )
 
-    for i in result:
-        for key in i:
-            if key=="text":
-                value = i[key]
-                translated = translate.translate_text(Text=value, SourceLanguageCode='auto', TargetLanguageCode='es')
-                i[key] = translated['TranslatedText']
+    translated = translate.translate_text(Text=result['item']['text'], SourceLanguageCode='auto', TargetLanguageCode='es')
+    result['item']['text'] = translated['TranslatedText']
 
     # create a response
     response = {
