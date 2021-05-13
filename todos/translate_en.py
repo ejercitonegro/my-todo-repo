@@ -1,14 +1,11 @@
 import os
 import json
-import codecs
-
-#from todos import get
 import boto3
-
+from todos import decimalencoder
+dynamodb = boto3.resource('dynamodb')
 translate = boto3.client('translate')
 
 def translate_en(event, context):
-    #result = get.get(event, context)
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
 
     # fetch todo from the database
