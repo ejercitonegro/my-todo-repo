@@ -18,8 +18,8 @@ def translate_en(event, context):
         }
     )
 
-    translated = translate.translate_text(Text=result['item']['text'], SourceLanguageCode='auto', TargetLanguageCode='es')
-    result['item']['text'] = translated['TranslatedText']
+    translated = translate.translate_text(Text=result['Item']['text'], SourceLanguageCode='auto', TargetLanguageCode='es')
+    result['Item']['text'] = translated['TranslatedText']
 
     # create a response
     response = {
