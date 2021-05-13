@@ -23,7 +23,7 @@ def translate_en(event, context):
             if key=="text":
                 value = i[key]
                 translated = translate.translate_text(Text=value, SourceLanguageCode='auto', TargetLanguageCode='es')
-                i[key] = translated
+                i[key] = translated['TranslatedText']
 
     # create a response
     response = {
