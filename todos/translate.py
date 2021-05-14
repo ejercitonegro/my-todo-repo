@@ -2,8 +2,9 @@ import os
 import json
 import boto3
 from todos import decimalencoder
-dynamodb = boto3.resource('dynamodb')
+
 translate = boto3.client('translate')
+dynamodb = boto3.resource('dynamodb')
 
 def translate(event, context):
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
