@@ -3,7 +3,7 @@ import json
 import boto3
 from todos import decimalencoder
 
-translate = boto3.client('translate')
+translateb = boto3.client('translate')
 dynamodb = boto3.resource('dynamodb')
 
 def translate(event, context):
@@ -16,7 +16,7 @@ def translate(event, context):
         }
     )
 
-    translated = translate.translate_text(Text=result['Item']['text'], SourceLanguageCode='auto', TargetLanguageCode='en')
+    translated = translateb.translate_text(Text=result['Item']['text'], SourceLanguageCode='auto', TargetLanguageCode=event['pathParameters']['lang'])
     result['Item']['text'] = translated['TranslatedText']
 
     # create a response
